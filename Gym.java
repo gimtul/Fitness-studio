@@ -1,6 +1,7 @@
 public class Gym {
     private String name;
     private Secretary currentsecretary;
+    private int gymBalance;
 
     public Gym(){
 
