@@ -1,3 +1,5 @@
+import gym.ForumType;
+
 import java.util.ArrayList;
 
 public class Secretary extends Person{
@@ -29,7 +31,7 @@ public class Secretary extends Person{
     public Instructor hireInstructor(Person p4, int i, ArrayList<SessionType> objects) {
         return(new Instructor(p4,i,objects));
     }
-    public Session addSession(SessionType type,String date, ForumType gender, Instructor instructor) throws InstructorNotQualifiedException {
+    public Session addSession(SessionType type, String date, ForumType gender, Instructor instructor) throws InstructorNotQualifiedException {
         ArrayList<SessionType> instructureType=instructor.getAllowedSessions();
         if (!instructureType.contains(type))
             throw new InstructorNotQualifiedException("instructor is not qualified to instruct this session");

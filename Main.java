@@ -1,4 +1,5 @@
 import gym.Exception.*;
+import gym.ForumType;
 import gym.customers.*;
 import gym.management.*;
 import gym.management.Sessions.*;
