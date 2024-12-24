@@ -13,7 +13,7 @@ public class Instructor extends Person {
     public Instructor(Person p,int i, ArrayList<SessionType> arr){
         super(p.getName(), p.getBalance(), p.getGender(),p.getBirthdate());
         hasaccess=true;
-        this.allowedSessions.addAll(arr);
+        this.allowedSessions = new ArrayList<>(arr);
         this.income=i;
     }
     public ArrayList<SessionType> getAllowedSessions(){

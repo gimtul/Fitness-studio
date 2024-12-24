@@ -5,7 +5,8 @@ public class Client extends Person{
     private ArrayList<String> messages;
     public Client(Person p){
         super(p.getName(),p.getBalance(),p.getGender(), p.getBirthdate());
-        this.hasAccess=true;
+        this.hasAccess = true;
+        this.messages = new ArrayList<>();
     }
     public void unregister(){
         this.hasAccess=false;

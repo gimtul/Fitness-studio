@@ -1,5 +1,3 @@
-import gym.ForumType;
-
 import java.util.ArrayList;
 
 public class Secretary extends Person{
@@ -10,6 +8,8 @@ public class Secretary extends Person{
     public Secretary(Person person, int salary){
         super(person.getName(),salary,person.getGender(),person.getBirthdate());
         this.hasAccess=true;
+        this.clients = new ArrayList<>();
+        this.instructors = new ArrayList<>();
     }
     public void revokeAccess(){
         this.hasAccess=false;
@@ -18,11 +18,14 @@ public class Secretary extends Person{
     public Client registerClient(Person p2) throws InvalidAgeException, DuplicateClientException {
         if (p2.getAge()<18)
             throw new InvalidAgeException("Invalid age, to register you have to be over 18");
-        else if (clients.contains(p2)) {
-            throw new DuplicateClientException("client is already in system");
+        for (Client client : clients) {
+            if (client.equals(p2)) {
+                throw new DuplicateClientException("Client is already in the system");
+            }
         }
-        clients.add((Client) p2);
-        return(new Client(p2));
+        Client newClient = new Client(p2);
+        clients.add(newClient);
+        return newClient;
     }
 
     public void unregisterClient(Client c2) throws ClientNotRegisteredException {
@@ -60,10 +63,11 @@ public class Secretary extends Person{
     }
 
     public void notify(Session sess, String str) {
-        ArrayList<Client> clientsRegisterd=null;
-        clientsRegisterd.addAll(sess.getRegisteredClients());
-        for (Client client: clientsRegisterd)
-            client.message(str);
+        if (sess.getRegisteredClients() != null) {
+            ArrayList<Client> clientsRegistered = new ArrayList<>(sess.getRegisteredClients());
+            for (Client client : clientsRegistered)
+                client.message(str);
+        }
     }
     public void notify(String date,String str){
 
