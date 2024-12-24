@@ -8,13 +8,24 @@ enum SessionType{
 public class Instructor extends Person {
     private boolean hasaccess;
     private ArrayList<SessionType> allowedSessions;
-
+    final int income;
+    private int pay=0;
     public Instructor(Person p,int i, ArrayList<SessionType> arr){
-        super(p.getName(), i, p.getGender(),p.getBirthdate());
+        super(p.getName(), p.getBalance(), p.getGender(),p.getBirthdate());
         hasaccess=true;
         this.allowedSessions.addAll(arr);
+        this.income=i;
     }
     public ArrayList<SessionType> getAllowedSessions(){
         return this.allowedSessions;
+    }
+    public void addPay(){
+        this.pay=pay+income;
+    }
+    public int getPay(){
+        return pay;
+    }
+    public void setPay(int i){
+        this.pay=i;
     }
 }

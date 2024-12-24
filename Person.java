@@ -5,17 +5,18 @@ enum Gender{
 }
 public class Person {
     private String name;
-    private int income;
+    private int balance;
     private String birthdate;
     private Gender gender;
     private int age;
     public Person(String name, int income,Gender gender,String birthdate){
         this.name=name;
-        this.income=income;
+        this.balance=income;
         this.gender=gender;
         this.birthdate=birthdate;
     }
-    public int getAge(Time currenttime){
+    public int getAge(){
+        Time currenttime=new Time();
         String[] parts=birthdate.split("-");
         this.age=currenttime.getYear()-(Integer.parseInt(parts[2]));
         if (currenttime.getMonth()<(Integer.parseInt(parts[1])))
@@ -26,16 +27,19 @@ public class Person {
         }
         return this.age;
     }
-    protected String getName() {
+    public String getName() {
         return this.name;
     }
-    protected int getSalary(){
-        return this.income;
+    public int getBalance(){
+        return this.balance;
     }
-    protected Gender getGender(){
+    public Gender getGender(){
         return this.gender;
     }
-    protected String getBirthdate(){
+    public String getBirthdate(){
         return this.birthdate;
+    }
+    public void setBalance(int i){
+        this.balance=i;
     }
 }
