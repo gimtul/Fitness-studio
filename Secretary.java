@@ -25,6 +25,8 @@ public class Secretary extends Person{
     }
 
     public Client registerClient(Person p2) throws InvalidAgeException, DuplicateClientException {
+        if(!hasAccess)
+            throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         if (p2.getAge()<18)
             throw new InvalidAgeException("Invalid age, to register you have to be over 18");
 
@@ -37,6 +39,8 @@ public class Secretary extends Person{
     }
 
     public void unregisterClient(Client c2) throws ClientNotRegisteredException {
+        if(!hasAccess)
+            throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         if (!isClientRegistered(c2))
             throw new ClientNotRegisteredException("client is not registered");
         c2.unregister();
@@ -44,11 +48,15 @@ public class Secretary extends Person{
     }
 
     public Instructor hireInstructor(Person p4, int i, ArrayList<SessionType> objects) {
+        if(!hasAccess)
+            throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         Instructor instructor=new Instructor(p4,i,objects);
         instructors.add(instructor);
         return(instructor);
     }
     public Session addSession(SessionType type, String date, ForumType gender, Instructor instructor) throws InstructorNotQualifiedException {
+        if(!hasAccess)
+            throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         ArrayList<SessionType> instructureType=instructor.getAllowedSessions();
         if (!instructureType.contains(type))
             throw new InstructorNotQualifiedException("instructor is not qualified to instruct this session");
@@ -56,6 +64,8 @@ public class Secretary extends Person{
     }
 
     public void registerClientToLesson(Client c1, Session s1) throws ClientNotRegisteredException, DuplicateClientException {
+        if(!hasAccess)
+            throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         if (!c1.isClient())
             throw new ClientNotRegisteredException("client is not registered");
 
@@ -64,14 +74,17 @@ public class Secretary extends Person{
                 //System.out.println(s1.getDate() + ", client: " + c1.getName());
                 s1.register(c1);
             }
-            else
+            else {
                 c1.message("session has passed");
+            }
         }
         else
             c1.message("session is full");
     }
 
     public void notify(Session sess, String str) {
+        if(!hasAccess)
+            throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         if (sess.getRegisteredClients() != null) {
             ArrayList<Client> clientsRegistered = new ArrayList<>(sess.getRegisteredClients());
             for (Client client : clientsRegistered)
@@ -79,20 +92,29 @@ public class Secretary extends Person{
         }
     }
     public void notify(String date,String str){
+        if(!hasAccess)
+            throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
 
     }
     public void notify(String str){
+        if(!hasAccess)
+            throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         for (Client client: this.clients)
             client.message(str);
     }
     public void notify(Client c, String str){
+        if(!hasAccess)
+            throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         c.message(str);
     }
     public void printActions() {
-
+        if(!hasAccess)
+            throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
     }
 
     public void paySalaries() {
+        if(!hasAccess)
+            throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         for (Instructor inst: instructors){
             inst.setBalance(inst.getBalance()+ inst.getPay());
             inst.setPay(0);
