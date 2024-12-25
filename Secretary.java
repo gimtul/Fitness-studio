@@ -4,10 +4,10 @@ public class Secretary extends Person{
     private boolean hasAccess;
     private ArrayList<Client> clients;
     private ArrayList<Instructor> instructors;
-    public Time currentTime = new Time();
+    public Time currentTime=new Time();
     public Secretary(Person person, int salary){
         super(person.getName(),salary,person.getGender(),person.getBirthdate());
-        this.hasAccess = true;
+        this.hasAccess=true;
         this.clients = new ArrayList<>();
         this.instructors = new ArrayList<>();
     }
@@ -36,7 +36,7 @@ public class Secretary extends Person{
         return newClient;
     }
 
-    public void unregisterClient(Client c2) throws ClientNotRegisteredException {
+    public void unregisterClient(Client c2) throws ClientNotRegisteredException {///////////////////
         if (!isClientRegistered(c2))
             throw new ClientNotRegisteredException("client is not registered");
         c2.unregister();
