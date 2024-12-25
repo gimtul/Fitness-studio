@@ -16,6 +16,7 @@ public class Session {
     public Session(SessionType sessiontype, String date, ForumType forumtype,Instructor instructor){
         this.forumType=forumtype;
         this.date=date;
+        this.clients = new ArrayList<>();
         if (sessiontype==SessionType.Pilates){
             this.price=60;
             this.participants=30;
@@ -38,9 +39,19 @@ public class Session {
         }
         instructor.addPay();
     }
+
+    public boolean isClientRegistered(Person p2) {
+        for (Client client : clients) {
+            if (client.equals(p2)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void register(Client c) throws DuplicateClientException {
-        if (clients.contains(c))
-            throw new DuplicateClientException("client is already registerd to this lesson");
+        if (isClientRegistered(c))
+            throw new DuplicateClientException("client is already registered to this lesson");
         if ((this.forumType==ForumType.Female&&c.getGender()!=Gender.Female)||(this.forumType==ForumType.Male&&c.getGender()!=Gender.Male)||(this.forumType==ForumType.Seniors&&c.getAge()<65)){
             c.message("Session's forum type doesnt allow to register");
         }
@@ -66,19 +77,10 @@ public class Session {
         return date;
     }
     public boolean sessionPassed(){
-        Time sessionTime=new Time(this.date);
-        Time currentTime=new Time();
-        if (currentTime.getYear()<sessionTime.getYear()) {
-            if (currentTime.getMonth()<sessionTime.getMonth()) {
-                if (currentTime.getDay()<sessionTime.getDay()) {
-                    if (currentTime.getHour()<sessionTime.getHour()) {
-                        if (currentTime.getMinute()<sessionTime.getMinute()) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
+        Time sessionTime = new Time(this.date);
+        System.out.println("Current Time: " + sessionTime);
+        Time currentTime = new Time();
+        System.out.println("Current Time: " + currentTime);
+        return currentTime.isAfter(sessionTime);
     }
 }

@@ -4,10 +4,10 @@ public class Secretary extends Person{
     private boolean hasAccess;
     private ArrayList<Client> clients;
     private ArrayList<Instructor> instructors;
-    public Time currentTime=new Time();
+    public Time currentTime = new Time();
     public Secretary(Person person, int salary){
         super(person.getName(),salary,person.getGender(),person.getBirthdate());
-        this.hasAccess=true;
+        this.hasAccess = true;
         this.clients = new ArrayList<>();
         this.instructors = new ArrayList<>();
     }
@@ -15,22 +15,30 @@ public class Secretary extends Person{
         this.hasAccess=false;
     }
 
+    public boolean isClientRegistered(Person p2) {
+        for (Client client : this.clients) {
+            if (client.equals(p2)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Client registerClient(Person p2) throws InvalidAgeException, DuplicateClientException {
         if (p2.getAge()<18)
             throw new InvalidAgeException("Invalid age, to register you have to be over 18");
-        for (Client client : clients) {
-            if (client.equals(p2)) {
-                throw new DuplicateClientException("Client is already in the system");
-            }
-        }
+
+        if (isClientRegistered(p2))
+            throw new DuplicateClientException("Client is already in the system");
+
         Client newClient = new Client(p2);
         clients.add(newClient);
         return newClient;
     }
 
     public void unregisterClient(Client c2) throws ClientNotRegisteredException {
-        if (!clients.contains(c2))
-            throw new ClientNotRegisteredException("client is not registerd");
+        if (!isClientRegistered(c2))
+            throw new ClientNotRegisteredException("client is not registered");
         c2.unregister();
         clients.remove(c2);
     }
@@ -50,9 +58,10 @@ public class Secretary extends Person{
     public void registerClientToLesson(Client c1, Session s1) throws ClientNotRegisteredException, DuplicateClientException {
         if (!c1.isClient())
             throw new ClientNotRegisteredException("client is not registered");
-        Time sessionTime=new Time(s1.getDate());
+
         if (s1.getRemainingSpots()>0) {
-            if (s1.sessionPassed()) {
+            if (!s1.sessionPassed()) {
+                //System.out.println(s1.getDate() + ", client: " + c1.getName());
                 s1.register(c1);
             }
             else

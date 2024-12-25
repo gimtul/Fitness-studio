@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -26,6 +27,19 @@ public class Time {
         this.hour=Integer.parseInt(parts[3]);
         this.minute=Integer.parseInt(parts[4]);
     }
+
+    public boolean isBefore(Time other) {
+        LocalDateTime thisTime = LocalDateTime.of(year, month, day, hour, minute);
+        LocalDateTime otherTime = LocalDateTime.of(other.getYear(), other.getMonth(), other.getDay(), other.getHour(), other.getMinute());
+        return thisTime.isBefore(otherTime);
+    }
+
+    public boolean isAfter(Time other) {
+        LocalDateTime thisTime = LocalDateTime.of(year, month, day, hour, minute);
+        LocalDateTime otherTime = LocalDateTime.of(other.getYear(), other.getMonth(), other.getDay(), other.getHour(), other.getMinute());
+        return thisTime.isAfter(otherTime);
+    }
+
     public int getDay() {
         return day;
     }
@@ -41,4 +55,9 @@ public class Time {
     public int getYear() {
         return year;
     }
+    @Override
+    public String toString() {
+        return String.format("%02d-%02d-%04d %02d:%02d", day, month, year, hour, minute);
+    }
+
 }
