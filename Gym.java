@@ -1,7 +1,7 @@
 public class Gym {
     private String name;
     private Secretary currentsecretary;
-    private int gymBalance;
+    private int gymBalance=0;
     private static Gym instance;
 
     public Gym(){
@@ -28,6 +28,9 @@ public class Gym {
     }
     public Secretary getSecretary(){
         return currentsecretary;
+    }
+    public void addToBalance(int i){
+        this.gymBalance=gymBalance+1;
     }
 
 }
