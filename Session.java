@@ -79,9 +79,7 @@ public class Session {
     }
     public boolean sessionPassed(){
         Time sessionTime = new Time(this.date);
-        System.out.println("Current Time: " + sessionTime);
         Time currentTime = new Time();
-        System.out.println("Current Time: " + currentTime);
         return currentTime.isAfter(sessionTime);
     }
 }
