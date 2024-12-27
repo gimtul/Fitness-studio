@@ -12,11 +12,13 @@ public class Session {
     private static int availableSpots;
     private int price;
     private ArrayList<Client> clients;
+    private SessionType sessionType;
 
     public Session(SessionType sessiontype, String date, ForumType forumtype,Instructor instructor){
         this.forumType=forumtype;
         this.date=date;
         this.clients = new ArrayList<>();
+        this.sessionType=sessiontype;
         if (sessiontype==SessionType.Pilates){
             this.price=60;
             this.participants=30;
@@ -51,12 +53,12 @@ public class Session {
 
     public void register(Client c) throws DuplicateClientException {
         if (isClientRegistered(c))
-            throw new DuplicateClientException("client is already registered to this lesson");
+            throw new DuplicateClientException("Error: The client is already registered for this lesson");
         if ((this.forumType==ForumType.Female&&c.getGender()!=Gender.Female)||(this.forumType==ForumType.Male&&c.getGender()!=Gender.Male)||(this.forumType==ForumType.Seniors&&c.getAge()<65)){
-            c.message("Session's forum type doesnt allow to register");
+            Gym.getInstance().getSecretary().addAction("Session's forum type doesnt allow to register");
         }
         if (c.getBalance()<this.price){
-            c.message("not enough money in balance");
+            Gym.getInstance().getSecretary().addAction("not enough money in balance");
         }
         else {
             clients.add(c);
@@ -65,6 +67,8 @@ public class Session {
             Gym.getInstance().addToGymBalance(this.price);
         }
     }
+    public SessionType getSessionType(){return sessionType;}
+    public int getPrice(){return price;}
     public int getRemainingSpots(){
         return availableSpots;
     }
@@ -79,9 +83,7 @@ public class Session {
     }
     public boolean sessionPassed(){
         Time sessionTime = new Time(this.date);
-        System.out.println("Current Time: " + sessionTime);
         Time currentTime = new Time();
-        System.out.println("Current Time: " + currentTime);
         return currentTime.isAfter(sessionTime);
     }
 }
