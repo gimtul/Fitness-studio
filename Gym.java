@@ -43,5 +43,9 @@ public class Gym {
     public void subtractFromGymBalance(int amount) {
         gymBalance -= amount;
     }
+    @Override
+    public String toString() {
+        return String.format("Gym Name: %s\nGym Secretary: %s\nGym Balance: %d\n\nClients Data:\n", getName(), getSecretary(), getGymBalance());
+    }
 
 }

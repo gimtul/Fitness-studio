@@ -149,4 +149,13 @@ public class Secretary extends Person{
     public void addAction(String str){
         actionHistory.add(str);
     }
+    @Override
+    public String toString() {
+        return String.format("ID: | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s | Role: Secretary | Salary per Month: %s", getName(), getGender(), getBirthdate(), getAge(), getBalance(), getBalance());
+    }
+
+    public String getClients() {
+        return String.format("ID: | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s | Role: Secretary | Salary per Month: %s", getName(), getGender(), getBirthdate(), getAge(), getBalance(), getBalance());
+    }
+
 }
