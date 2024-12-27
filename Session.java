@@ -62,6 +62,7 @@ public class Session {
             clients.add(c);
             availableSpots--;
             c.setBalance(c.getBalance()-this.price);
+            Gym.getInstance().addToGymBalance(this.price);
         }
     }
     public int getRemainingSpots(){

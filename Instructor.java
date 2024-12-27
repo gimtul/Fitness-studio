@@ -9,7 +9,7 @@ public class Instructor extends Person {
     private boolean hasaccess;
     private ArrayList<SessionType> allowedSessions;
     final int income;
-    private int pay=0;
+    private int pay = 0;
     public Instructor(Person p,int i, ArrayList<SessionType> arr){
         super(p.getName(), p.getBalance(), p.getGender(),p.getBirthdate());
         hasaccess=true;

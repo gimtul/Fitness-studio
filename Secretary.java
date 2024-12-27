@@ -116,7 +116,7 @@ public class Secretary extends Person{
         if(!hasAccess)
             throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         for (Instructor inst: instructors){
-            inst.setBalance(inst.getBalance()+ inst.getPay());
+            inst.setBalance(inst.getBalance() + inst.getPay());
             inst.setPay(0);
         }
     }

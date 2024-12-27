@@ -30,7 +30,18 @@ public class Gym {
         return currentsecretary;
     }
     public void addToBalance(int i){
-        this.gymBalance=gymBalance+1;
+        this.gymBalance = gymBalance+1;
+    }
+
+    public int getGymBalance() {
+        return this.gymBalance;
+    }
+
+    public void addToGymBalance(int amount) {
+        gymBalance += amount;
+    }
+    public void subtractFromGymBalance(int amount) {
+        gymBalance -= amount;
     }
 
 }
