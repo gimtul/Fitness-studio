@@ -60,7 +60,7 @@ public class Gym {
     }
 
     public static String getClientData(Client client) {
-        return String.format("ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s",client.getID(), client.getName(), client.getGender(), client.getBirthdate(), client.getAge(), client.getBalance());
+        return String.format("ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s",client.getID(), client.getName(), client.getGender(), client.getBirthdate(), client.getAge(), client.getClientBalance());
     }
 
     public String getEmployeesData(){

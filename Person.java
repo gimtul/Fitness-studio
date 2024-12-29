@@ -1,3 +1,7 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 enum Gender{
     Male,
     Female,
@@ -11,6 +15,8 @@ public class Person {
     private String birthdate;
     private Gender gender;
     private int age;
+    private static ArrayList<Person> people = new ArrayList<>();
+
     public Person(String name, int balance,Gender gender,String birthdate){
         this.name=name;
         this.balance=balance;
@@ -20,11 +26,13 @@ public class Person {
     }
 
     public Person(Person person){
+        this.age = person.age;
         this.name=person.name;
         this.balance=person.balance;
         this.gender=person.gender;
         this.birthdate=person.birthdate;
         this.ID = person.ID;
+        people.add(person);
     }
 
     public int getAge(){
@@ -56,5 +64,12 @@ public class Person {
     }
     public void setBalance(int i){
         this.balance=i;
+    }
+    public Person getPersonOfID(int id) {
+        for (Person person : people) {
+            if (person.ID == id)
+                return person;
+        }
+        return null;
     }
 }

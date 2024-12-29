@@ -3,10 +3,13 @@ import java.util.ArrayList;
 public class Client extends Person{
     private boolean hasAccess;
     private ArrayList<String> messages;
+    final private Person originalPerson;
+
     public Client(Person p){
         super(p);
         this.hasAccess = true;
         this.messages = new ArrayList<>();
+        this.originalPerson = p;
     }
     public void unregister(){
         this.hasAccess=false;
@@ -22,9 +25,10 @@ public class Client extends Person{
         return messages;
     }
     public void setClientBalance(int i){
-        super.setBalance(i);
+        this.originalPerson.setBalance(i);
+        this.setBalance(i);
     }
     public int getClientBalance(){
-        return super.getBalance();
+        return this.originalPerson.getBalance();
     }
 }

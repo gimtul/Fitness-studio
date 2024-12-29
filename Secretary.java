@@ -107,7 +107,7 @@ public class Secretary extends Person{
                 ArrayList<Client> clientsRegistered = new ArrayList<>(sess.getRegisteredClients());
                 for (Client client : clientsRegistered){
                     client.message(str);
-                    }
+                }
             }
         }
         String[] splitDate = getSplitDate(date);
@@ -138,6 +138,7 @@ public class Secretary extends Person{
         if(!hasAccess)
             throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         for (Instructor inst: instructors){
+            System.out.println(inst.getPay());
             int i=inst.getInstructorBalance()+inst.getPay();
             inst.setInstructorBalance(i);
             Gym.getInstance().addToGymBalance(-inst.getPay());

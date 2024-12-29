@@ -10,11 +10,13 @@ public class Instructor extends Person {
     private ArrayList<SessionType> allowedSessions;
     final int income;
     private int pay = 0;
+    final private Person originalPerson;
     public Instructor(Person p,int i, ArrayList<SessionType> arr){
         super(p);
         hasaccess=true;
-        this.allowedSessions=new ArrayList<>(arr);
+        this.allowedSessions = new ArrayList<>(arr);
         this.income=i;
+        this.originalPerson = p;
     }
     public ArrayList<SessionType> getAllowedSessions(){
         return this.allowedSessions;
@@ -25,13 +27,17 @@ public class Instructor extends Person {
     public int getPay(){
         return pay;
     }
-    public int getIncome(){
-        return income;
-    }
     public void setPay(int i){
         this.pay=i;
     }
-
-    public int getInstructorBalance() {
+    public int getIncome(){
+        return income;
+    }
+    public void setInstructorBalance(int i){
+        this.originalPerson.setBalance(i);
+        this.setBalance(i);
+    }
+    public int getInstructorBalance(){
+        return this.originalPerson.getBalance();
     }
 }
