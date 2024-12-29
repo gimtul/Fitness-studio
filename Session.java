@@ -81,7 +81,7 @@ public class Session {
         if (ableToRegister){
             clients.add(c);
             availableSpots--;
-            c.setBalance(c.getBalance()-this.price);
+            c.setClientBalance(c.getClientBalance()-this.price);
             Gym.getInstance().addToGymBalance(this.price);
             String[] splitDate = this.getSplitDate();
             Gym.getInstance().getSecretary().addAction(String.format("Registered client: %s to session: %s on %s-%s-%sT%s for price: %s", c.getName(), this.getSessionType(), splitDate[2], splitDate[1], splitDate[0], splitDate[3], this.getPrice()));

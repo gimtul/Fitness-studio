@@ -1,5 +1,2 @@
-public class Pilates extends Session{
-    public Pilates(){
-
-    }
+public class Pilates {
 }

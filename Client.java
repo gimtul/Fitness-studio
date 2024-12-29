@@ -21,4 +21,10 @@ public class Client extends Person{
     public ArrayList<String> getNotifications() {
         return messages;
     }
+    public void setClientBalance(int i){
+        super.setBalance(i);
+    }
+    public int getClientBalance(){
+        return super.getBalance();
+    }
 }

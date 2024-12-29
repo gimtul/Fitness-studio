@@ -1,5 +1,2 @@
-public class MachinePilates extends Session{
-    public MachinePilates(){
-
-    }
+public class MachinePilates{
 }
