@@ -31,4 +31,7 @@ public class Instructor extends Person {
     public void setPay(int i){
         this.pay=i;
     }
+
+    public int getInstructorBalance() {
+    }
 }
