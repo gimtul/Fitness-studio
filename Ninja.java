@@ -1,5 +1,2 @@
-public class Ninja extends Session{
-    public Ninja(){
-
-    }
+public class Ninja {
 }

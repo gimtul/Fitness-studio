@@ -105,7 +105,6 @@ public class Main {
         gymSecretary.notify("Happy New Year to all our valued clients!");
 
         gymSecretary.paySalaries();
-
         gym.setSecretary(p3,8000);
         Secretary newGymSecretary = gym.getSecretary();
 

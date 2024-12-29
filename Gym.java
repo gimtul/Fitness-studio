@@ -83,7 +83,7 @@ public class Gym {
     }
 
     public static String getEmployeeData(Instructor instructor) {
-        return String.format("ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %d | Balance: %d | Role: Instructor | Salary per Hour: %s | Certified Classes: ",instructor.getID(), instructor.getName(), instructor.getGender(), instructor.getBirthdate(), instructor.getAge(), instructor.getBalance(), instructor.getPay());
+        return String.format("ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %d | Balance: %d | Role: Instructor | Salary per Hour: %s | Certified Classes: ",instructor.getID(), instructor.getName(), instructor.getGender(), instructor.getBirthdate(), instructor.getAge(), instructor.getBalance(), instructor.getIncome());
     }
 
     public String getSessionsData(){

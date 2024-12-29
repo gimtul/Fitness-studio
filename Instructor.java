@@ -28,4 +28,13 @@ public class Instructor extends Person {
     public void setPay(int i){
         this.pay=i;
     }
+    public int getIncome(){
+        return income;
+    }
+    public void setInstructorBalance(int i){
+        super.setBalance(i);
+    }
+    public int getInstructorBalance(){
+        return super.getBalance();
+    }
 }

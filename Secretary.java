@@ -6,10 +6,12 @@ public class Secretary extends Person{
     private static ArrayList<Instructor> instructors=new ArrayList<>();
     private static ArrayList<Session> sessions=new ArrayList<>();
     private static ArrayList<String> actionHistory=new ArrayList<>();
+    private int salary;
     public Time currentTime = new Time();
     public Secretary(Person person, int salary){
         super(person);
         this.hasAccess = true;
+        this.salary=salary;
         actionHistory.add("A new secretary has started working at the gym: "+person.getName());
     }
     public void revokeAccess(){
@@ -136,9 +138,13 @@ public class Secretary extends Person{
         if(!hasAccess)
             throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         for (Instructor inst: instructors){
-            inst.setBalance(inst.getBalance() + inst.getPay());
+            int i=inst.getInstructorBalance()+inst.getPay();
+            inst.setInstructorBalance(i);
+            Gym.getInstance().addToGymBalance(-inst.getPay());
             inst.setPay(0);
         }
+        pay();
+        Gym.getInstance().addToGymBalance(-salary);
         actionHistory.add("Salaries have been paid to all employees");
     }
     public void addAction(String str){
@@ -159,11 +165,14 @@ public class Secretary extends Person{
 
     @Override
     public String toString() {
-        return String.format("ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s | Role: Secretary | Salary per Month: %s",getID(), getName(), getGender(), getBirthdate(), getAge(), getBalance(), getBalance());
+        return String.format("ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s | Role: Secretary | Salary per Month: %s",getID(), getName(), getGender(), getBirthdate(), getAge(), getBalance(), this.salary);
     }
 
     public String[] getSplitDate(String date){
         return date.split("[- ]");
+    }
+    public void pay(){
+        super.setBalance(this.getBalance()+salary);
     }
 
 }

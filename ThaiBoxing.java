@@ -1,5 +1,2 @@
-public class ThaiBoxing extends Session{
-    public ThaiBoxing(){
-        
-    }
+public class ThaiBoxing {
 }
