@@ -13,12 +13,14 @@ public class Session {
     private int price;
     private ArrayList<Client> clients;
     private SessionType sessionType;
+    private Instructor instructor;
 
     public Session(SessionType sessiontype, String date, ForumType forumtype,Instructor instructor){
         this.forumType=forumtype;
         this.date=date;
         this.clients = new ArrayList<>();
         this.sessionType=sessiontype;
+        this.instructor=instructor;
         if (sessiontype==SessionType.Pilates){
             this.price=60;
             this.participants=30;
@@ -52,25 +54,43 @@ public class Session {
     }
 
     public void register(Client c) throws DuplicateClientException {
+        boolean ableToRegister = true;
         if (isClientRegistered(c))
             throw new DuplicateClientException("Error: The client is already registered for this lesson");
-        if ((this.forumType==ForumType.Female&&c.getGender()!=Gender.Female)||(this.forumType==ForumType.Male&&c.getGender()!=Gender.Male)||(this.forumType==ForumType.Seniors&&c.getAge()<65)){
-            Gym.getInstance().getSecretary().addAction("Session's forum type doesnt allow to register");
+        if ((this.forumType==ForumType.Female&&c.getGender()!=Gender.Female)||(this.forumType==ForumType.Male&&c.getGender()!=Gender.Male)){
+            Gym.getInstance().getSecretary().addAction("Failed registration: Client's gender doesn't match the session's gender requirements");
+            ableToRegister = false;
+        }
+        if (this.forumType==ForumType.Seniors&&c.getAge()<65){
+            Gym.getInstance().getSecretary().addAction("Failed registration: Client doesn't meet the age requirements for this session (Seniors)");
+            ableToRegister = false;
         }
         if (c.getBalance()<this.price){
-            Gym.getInstance().getSecretary().addAction("not enough money in balance");
+            Gym.getInstance().getSecretary().addAction("Failed registration: Client doesn't have enough balance");
+            ableToRegister = false;
         }
-        else {
+        if (availableSpots<=0){
+            Gym.getInstance().getSecretary().addAction("Failed registration: No available spots for session");
+            ableToRegister = false;
+        }
+        if (ableToRegister){
             clients.add(c);
             availableSpots--;
             c.setBalance(c.getBalance()-this.price);
             Gym.getInstance().addToGymBalance(this.price);
+            Gym.getInstance().getSecretary().addAction("Registered client: "+c.getName()+" to session: "+this.getSessionType()+" on "+this.getDate()+" for price: "+this.getPrice());
         }
     }
     public SessionType getSessionType(){return sessionType;}
     public int getPrice(){return price;}
-    public int getRemainingSpots(){
+    public int getAvailableSpots(){
         return availableSpots;
+    }
+    public int getTakenSpots(){
+        return clients.size();
+    }
+    public int getParticipants(){
+        return participants;
     }
     public ArrayList<Client> getRegisteredClients(){
         return clients;
@@ -81,6 +101,11 @@ public class Session {
     public String getDate(){
         return date;
     }
+
+    public Instructor getInstructor(){
+        return instructor;
+    }
+
     public boolean sessionPassed(){
         Time sessionTime = new Time(this.date);
         Time currentTime = new Time();

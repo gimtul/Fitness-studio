@@ -61,8 +61,8 @@ public class Secretary extends Person{
     public Session addSession(SessionType type, String date, ForumType gender, Instructor instructor) throws InstructorNotQualifiedException {
         if(!hasAccess)
             throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
-        ArrayList<SessionType> instructureType=instructor.getAllowedSessions();
-        if (!instructureType.contains(type))
+        ArrayList<SessionType> instructorType=instructor.getAllowedSessions();
+        if (!instructorType.contains(type))
             throw new InstructorNotQualifiedException("Error: Instructor is not qualified to conduct this session type.");
         Session sess=new Session(type,date,gender,instructor);
         sessions.add(sess);
@@ -76,11 +76,10 @@ public class Secretary extends Person{
         if (!c1.isClient())
             throw new ClientNotRegisteredException("Error: The client is not registered with the gym and cannot enroll in lessons");
 
-        if (s1.getRemainingSpots()>0) {
+        if (s1.getAvailableSpots()>0) {
             if (!s1.sessionPassed()) {
                 //System.out.println(s1.getDate() + ", client: " + c1.getName());
                 s1.register(c1);
-                actionHistory.add("Registered client: "+c1.getName()+" to session: "+s1.getSessionType()+" on "+s1.getDate()+" for price: "+s1.getPrice());
             }
             else {
                 actionHistory.add("Failed registration: Session is not in the future");
@@ -149,12 +148,21 @@ public class Secretary extends Person{
     public void addAction(String str){
         actionHistory.add(str);
     }
-    @Override
-    public String toString() {
-        return String.format("ID: | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s | Role: Secretary | Salary per Month: %s", getName(), getGender(), getBirthdate(), getAge(), getBalance(), getBalance());
+
+    public static ArrayList<Client> getClients(){
+        return clients;
     }
 
-    public String getClients() {
+    public static ArrayList<Instructor> getInstructors(){
+        return instructors;
+    }
+
+    public static ArrayList<Session> getSessions(){
+        return sessions;
+    }
+
+    @Override
+    public String toString() {
         return String.format("ID: | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s | Role: Secretary | Salary per Month: %s", getName(), getGender(), getBirthdate(), getAge(), getBalance(), getBalance());
     }
 

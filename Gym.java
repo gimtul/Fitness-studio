@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Gym {
     private String name;
     private Secretary currentsecretary;
@@ -37,20 +39,69 @@ public class Gym {
         return this.gymBalance;
     }
 
+    public String getClientData() {
+        return getClientData();
+    }
+
     public void addToGymBalance(int amount) {
         gymBalance += amount;
     }
     public void subtractFromGymBalance(int amount) {
         gymBalance -= amount;
     }
-    @Override
-    public String toString() {
-        return String.format("Gym Name: %s\nGym Secretary: %s\nGym Balance: %d\n\nClients Data:\n", getName(), getSecretary(), getGymBalance());
+
+    public String getClientsData(){
+        StringBuilder infoBuilder = new StringBuilder();
+        ArrayList<Client> clients = Secretary.getClients();
+        for (Client client : clients) {
+            infoBuilder.append(getClientData(client)).append("\n");
+        }
+        return infoBuilder.toString();
+    }
+
+    public static String getClientData(Client client) {
+        return String.format("ID: | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s", client.getName(), client.getGender(), client.getBirthdate(), client.getAge(), client.getBalance());
+    }
+
+    public String getEmployeesData(){
+        StringBuilder infoBuilder = new StringBuilder();
+        ArrayList<Instructor> instructors = Secretary.getInstructors();
+        for (Instructor instructor : instructors) {
+            infoBuilder.append(getEmployeeData(instructor)).append(getAllowedClasses(instructor)).append("\n");
+        }
+        return infoBuilder.toString();
+    }
+
+    public String getAllowedClasses(Instructor instructor){
+        StringBuilder infoBuilder = new StringBuilder();
+        ArrayList<SessionType> sessionTypes = instructor.getAllowedSessions();
+        for (SessionType sessionType : sessionTypes) {
+            infoBuilder.append(sessionType).append(", ");
+        }
+        infoBuilder.delete(infoBuilder.length() - 2, infoBuilder.length());
+        return infoBuilder.toString();
+    }
+
+    public static String getEmployeeData(Instructor instructor) {
+        return String.format("ID: | Name: %s | Gender: %s | Birthday: %s | Age: %d | Balance: %d | Role: Instructor | Salary per Hour: %s | Certified Classes: ", instructor.getName(), instructor.getGender(), instructor.getBirthdate(), instructor.getAge(), instructor.getBalance(), instructor.getPay());
+    }
+
+    public String getSessionsData(){
+        StringBuilder infoBuilder = new StringBuilder();
+        ArrayList<Session> sessions = Secretary.getSessions();
+        for (Session session : sessions) {
+            infoBuilder.append(getSessionData(session)).append("\n");
+        }
+        return infoBuilder.toString();
+    }
+
+    public static String getSessionData(Session session) {
+        return String.format("Session Type: %s | Date: %s | Forum: %s | Instructor: %s | Participants: %d/%d", session.getSessionType(), session.getDate(), session.getForumType(), session.getInstructor().getName(), session.getTakenSpots(), session.getParticipants());
     }
 
     @Override
     public String toString() {
-        return String.format("Gym Name: %s\nGym Secretary: %s\nGym Balance: %d\n\nClients Data:\n", getName(), getSecretary(), getGymBalance());
+        return String.format("Gym Name: %s\nGym Secretary: %s\nGym Balance: %d\n\nClients Data: \n%s\n\nEmployees Data: \n%s%s\n\nSessions Data:\n%s", getName(), getSecretary(), getGymBalance(), getClientsData(), getEmployeesData(), getSecretary(), getSessionsData());
     }
 
 }
