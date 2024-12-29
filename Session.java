@@ -9,7 +9,7 @@ public class Session {
     private ForumType forumType;
     final String date;
     private int participants;
-    private static int availableSpots;
+    private int availableSpots;
     private int price;
     private ArrayList<Client> clients;
     private SessionType sessionType;
@@ -57,6 +57,11 @@ public class Session {
         boolean ableToRegister = true;
         if (isClientRegistered(c))
             throw new DuplicateClientException("Error: The client is already registered for this lesson");
+        if (this.sessionPassed()){
+            Gym.getInstance().getSecretary().addAction("Failed registration: Session is not in the future");
+            ableToRegister = false;
+        }
+
         if ((this.forumType==ForumType.Female&&c.getGender()!=Gender.Female)||(this.forumType==ForumType.Male&&c.getGender()!=Gender.Male)){
             Gym.getInstance().getSecretary().addAction("Failed registration: Client's gender doesn't match the session's gender requirements");
             ableToRegister = false;

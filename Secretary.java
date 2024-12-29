@@ -8,7 +8,7 @@ public class Secretary extends Person{
     private static ArrayList<String> actionHistory=new ArrayList<>();
     public Time currentTime = new Time();
     public Secretary(Person person, int salary){
-        super(person.getName(),salary,person.getGender(),person.getBirthdate());
+        super(person);
         this.hasAccess = true;
         actionHistory.add("A new secretary has started working at the gym: "+person.getName());
     }
@@ -18,7 +18,7 @@ public class Secretary extends Person{
 
     public boolean isClientRegistered(Person p2) {
         for (Client client : clients) {
-            if (client.equals(p2)) {
+            if (client.getID() == (p2.getID())) {
                 return true;
             }
         }
@@ -32,7 +32,7 @@ public class Secretary extends Person{
             throw new InvalidAgeException("Error: Client must be at least 18 years old to register");
 
         if (isClientRegistered(p2))
-            throw new DuplicateClientException("Client is already in the system");
+            throw new DuplicateClientException("Error: The client is already registered");
 
         Client newClient = new Client(p2);
         clients.add(newClient);
@@ -44,7 +44,7 @@ public class Secretary extends Person{
         if(!hasAccess)
             throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         if (!isClientRegistered(c2))
-            throw new ClientNotRegisteredException("client is not registered");
+            throw new ClientNotRegisteredException("Error: Registration is required before attempting to unregister");
         c2.unregister();
         clients.remove(c2);
         actionHistory.add("Unregistered client: "+c2.getName());
@@ -76,14 +76,8 @@ public class Secretary extends Person{
         if (!c1.isClient())
             throw new ClientNotRegisteredException("Error: The client is not registered with the gym and cannot enroll in lessons");
 
-        if (s1.getAvailableSpots()>0) {
-            if (!s1.sessionPassed()) {
-                //System.out.println(s1.getDate() + ", client: " + c1.getName());
-                s1.register(c1);
-            }
-            else {
-                actionHistory.add("Failed registration: Session is not in the future");
-            }
+        if (s1.getAvailableSpots() > 0) {
+            s1.register(c1);
         }
         else {
             actionHistory.add("Failed registration: No available spots for session");
@@ -98,7 +92,7 @@ public class Secretary extends Person{
             for (Client client : clientsRegistered)
                 client.message(str);
         }
-        actionHistory.add("A message was sent to everyone registered for session "+sess.getSessionType()+" on "+sess.getDate()+" : "+str);
+        actionHistory.add(String.format("A message was sent to everyone registered for session %s on %s : %s", sess.getSessionType(), sess.getDate(), str));
     }
     public void notify(String date,String str){
         if(!hasAccess)
@@ -106,7 +100,6 @@ public class Secretary extends Person{
         for (Session sess: sessions){
             String[] day=sess.getDate().split(" ");
             if (day[0].equals(date)){
-                System.out.println(day[0]);
                 ArrayList<Client> clientsRegistered = new ArrayList<>(sess.getRegisteredClients());
                 for (Client client : clientsRegistered){
                     client.message(str);
@@ -163,7 +156,7 @@ public class Secretary extends Person{
 
     @Override
     public String toString() {
-        return String.format("ID: | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s | Role: Secretary | Salary per Month: %s", getName(), getGender(), getBirthdate(), getAge(), getBalance(), getBalance());
+        return String.format("ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s | Role: Secretary | Salary per Month: %s",getID(), getName(), getGender(), getBirthdate(), getAge(), getBalance(), getBalance());
     }
 
 }

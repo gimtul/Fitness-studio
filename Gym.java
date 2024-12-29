@@ -60,7 +60,7 @@ public class Gym {
     }
 
     public static String getClientData(Client client) {
-        return String.format("ID: | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s", client.getName(), client.getGender(), client.getBirthdate(), client.getAge(), client.getBalance());
+        return String.format("ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s",client.getID(), client.getName(), client.getGender(), client.getBirthdate(), client.getAge(), client.getBalance());
     }
 
     public String getEmployeesData(){
@@ -83,7 +83,7 @@ public class Gym {
     }
 
     public static String getEmployeeData(Instructor instructor) {
-        return String.format("ID: | Name: %s | Gender: %s | Birthday: %s | Age: %d | Balance: %d | Role: Instructor | Salary per Hour: %s | Certified Classes: ", instructor.getName(), instructor.getGender(), instructor.getBirthdate(), instructor.getAge(), instructor.getBalance(), instructor.getPay());
+        return String.format("ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %d | Balance: %d | Role: Instructor | Salary per Hour: %s | Certified Classes: ",instructor.getID(), instructor.getName(), instructor.getGender(), instructor.getBirthdate(), instructor.getAge(), instructor.getBalance(), instructor.getPay());
     }
 
     public String getSessionsData(){

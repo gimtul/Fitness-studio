@@ -11,7 +11,7 @@ public class Instructor extends Person {
     final int income;
     private int pay = 0;
     public Instructor(Person p,int i, ArrayList<SessionType> arr){
-        super(p.getName(), p.getBalance(), p.getGender(),p.getBirthdate());
+        super(p);
         hasaccess=true;
         this.allowedSessions = new ArrayList<>(arr);
         this.income=i;

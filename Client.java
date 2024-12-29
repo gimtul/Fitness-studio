@@ -4,7 +4,7 @@ public class Client extends Person{
     private boolean hasAccess;
     private ArrayList<String> messages;
     public Client(Person p){
-        super(p.getName(),p.getBalance(),p.getGender(), p.getBirthdate());
+        super(p);
         this.hasAccess = true;
         this.messages = new ArrayList<>();
     }
