@@ -66,7 +66,8 @@ public class Secretary extends Person{
             throw new InstructorNotQualifiedException("Error: Instructor is not qualified to conduct this session type.");
         Session sess=new Session(type,date,gender,instructor);
         sessions.add(sess);
-        actionHistory.add("Created new session: "+type+" on "+date+" with instructor: "+instructor.getName());
+        String[] splitDate = sess.getSplitDate();
+        actionHistory.add(String.format("Created new session: %s on %s-%s-%sT%s with instructor: %s", type, splitDate[2], splitDate[1], splitDate[0], splitDate[3], instructor.getName()));
         return (sess);
     }
 
@@ -92,7 +93,8 @@ public class Secretary extends Person{
             for (Client client : clientsRegistered)
                 client.message(str);
         }
-        actionHistory.add(String.format("A message was sent to everyone registered for session %s on %s : %s", sess.getSessionType(), sess.getDate(), str));
+        String[] splitDate = sess.getSplitDate();
+        actionHistory.add(String.format("A message was sent to everyone registered for session %s on %s-%s-%sT%s : %s", sess.getSessionType(), splitDate[2], splitDate[1], splitDate[0], splitDate[3], str));
     }
     public void notify(String date,String str){
         if(!hasAccess)
@@ -106,7 +108,8 @@ public class Secretary extends Person{
                     }
             }
         }
-        actionHistory.add("A message was sent to everyone registered for a session on "+date+" : "+str);
+        String[] splitDate = getSplitDate(date);
+        actionHistory.add(String.format("A message was sent to everyone registered for a session on %s-%s-%s : %s", splitDate[2], splitDate[1], splitDate[0], str));
     }
     public void notify(String str){
         if(!hasAccess)
@@ -157,6 +160,10 @@ public class Secretary extends Person{
     @Override
     public String toString() {
         return String.format("ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s | Role: Secretary | Salary per Month: %s",getID(), getName(), getGender(), getBirthdate(), getAge(), getBalance(), getBalance());
+    }
+
+    public String[] getSplitDate(String date){
+        return date.split("[- ]");
     }
 
 }
