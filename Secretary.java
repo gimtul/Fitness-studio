@@ -6,9 +6,11 @@ public class Secretary extends Person{
     private static ArrayList<Instructor> instructors=new ArrayList<>();
     private static ArrayList<Session> sessions=new ArrayList<>();
     private static ArrayList<String> actionHistory=new ArrayList<>();
+    private int salary;
     public Time currentTime = new Time();
     public Secretary(Person person, int salary){
         super(person);
+        this.salary = salary;
         this.hasAccess = true;
         actionHistory.add("A new secretary has started working at the gym: "+person.getName());
     }
@@ -159,7 +161,11 @@ public class Secretary extends Person{
 
     @Override
     public String toString() {
-        return String.format("ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s | Role: Secretary | Salary per Month: %s",getID(), getName(), getGender(), getBirthdate(), getAge(), getBalance(), getBalance());
+        return String.format("ID: %d | Name: %s | Gender: %s | Birthday: %s | Age: %s | Balance: %s | Role: Secretary | Salary per Month: %s",getID(), getName(), getGender(), getBirthdate(), getAge(), getBalance(), getSalary());
+    }
+
+    public int getSalary() {
+        return salary;
     }
 
     public String[] getSplitDate(String date){

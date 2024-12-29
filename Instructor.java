@@ -13,7 +13,7 @@ public class Instructor extends Person {
     public Instructor(Person p,int i, ArrayList<SessionType> arr){
         super(p);
         hasaccess=true;
-        this.allowedSessions = new ArrayList<>(arr);
+        this.allowedSessions=new ArrayList<>(arr);
         this.income=i;
     }
     public ArrayList<SessionType> getAllowedSessions(){
@@ -24,6 +24,9 @@ public class Instructor extends Person {
     }
     public int getPay(){
         return pay;
+    }
+    public int getIncome(){
+        return income;
     }
     public void setPay(int i){
         this.pay=i;
