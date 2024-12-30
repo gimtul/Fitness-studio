@@ -5,7 +5,7 @@ enum ForumType{
     Seniors,
     Male
 }
-public class Session {
+abstract class Session {
     private ForumType forumType;
     final String date;
     private int participants;
@@ -21,28 +21,13 @@ public class Session {
         this.clients = new ArrayList<>();
         this.sessionType=sessiontype;
         this.instructor=instructor;
-        if (sessiontype==SessionType.Pilates){
-            this.price=60;
-            this.participants=30;
-            availableSpots=30;
-        }
-        if (sessiontype==SessionType.MachinePilates){
-            this.price=80;
-            this.participants=10;
-            availableSpots=10;
-        }
-        if (sessiontype==SessionType.ThaiBoxing){
-            this.price=100;
-            this.participants=20;
-            availableSpots=20;
-        }
-        if (sessiontype==SessionType.Ninja){
-            this.price=150;
-            this.participants=5;
-            availableSpots=5;
-        }
+        Session sessionsType=FactorySession.createSession(sessiontype);
+        sessionsType.conductSession();
         instructor.addPay();
     }
+
+
+    void conductSession(){}
 
     public boolean isClientRegistered(Person p2) {
         for (Client client : clients) {

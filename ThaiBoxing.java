@@ -1,2 +1,6 @@
-public class ThaiBoxing {
+public class ThaiBoxing extends Session{
+    @Override
+    public void conductSession(){
+
+    }
 }
